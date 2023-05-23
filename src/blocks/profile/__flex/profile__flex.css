@@ -1,0 +1,11 @@
+.profile__flex {
+  display: flex;
+  gap: 18px;
+}
+
+@media (max-width: 540px) {
+  .profile__flex {
+    justify-content: center;
+    gap: 10px;
+  }
+}

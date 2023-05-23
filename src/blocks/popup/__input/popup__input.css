@@ -1,0 +1,25 @@
+.popup__input {
+  margin: 0;
+  width: 100%;
+  min-height: 27px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.popup__input:focus {
+  border: 1px solid #007aff;
+}
+
+.popup__input:active {
+  border: 1px solid #007aff;
+}
+
+@media (max-width: 540px) {
+  .popup__input {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

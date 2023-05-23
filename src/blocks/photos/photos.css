@@ -1,0 +1,19 @@
+.photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 282px);
+  gap: 20px 17px;
+  margin: 0 auto;
+  min-height: 45vh;
+}
+
+@media (max-width: 930px) {
+  .photos {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 620px) {
+  .photos {
+    gap: 20px;
+  }
+}

@@ -1,0 +1,14 @@
+.profile {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 620px) {
+  .profile {
+    flex-direction: column;
+    gap: 26px;
+    margin-bottom: 36px;
+  }
+}
