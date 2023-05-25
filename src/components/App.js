@@ -26,7 +26,7 @@ function App() {
   }
 
   return (
-    <body className="root">
+    <div className="root">
       <div className="page">
         <Header />
         <Main
@@ -47,8 +47,8 @@ function App() {
             type="text"
             name="name"
             placeholder="Имя"
-            minlength="2"
-            maxlength="40"
+            minLength="2"
+            maxLength="40"
             required
           />
           <span className="popup__input-error popup__input-name-error"></span>
@@ -59,8 +59,8 @@ function App() {
             type="text"
             placeholder="О себе"
             name="occupation"
-            minlength="2"
-            maxlength="200"
+            minLength="2"
+            maxLength="200"
             required
           />
           <span className="popup__input-error popup__input-occupation-error"></span>
@@ -78,8 +78,8 @@ function App() {
             type="text"
             name="title"
             placeholder="Название"
-            minlength="2"
-            maxlength="30"
+            minLength="2"
+            maxLength="30"
             required
           />
           <span className="popup__input-error popup__input-title-error"></span>
@@ -115,7 +115,7 @@ function App() {
         <PopupWithForm name="delete-card" title="Вы уверены?" buttonText="Да" />
         <Footer />
       </div>
-    </body>
+    </div>
   );
 }
 

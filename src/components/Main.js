@@ -1,7 +1,25 @@
 import React from 'react';
-import ImagePopup from './ImagePopup';
+import { api } from '../utils/api';
+import userAvatar from '../images/profile__avatar.png';
 
 function Main(props) {
+  const [userName, setUserName] = React.useState('');
+  const [userOccupation, setUserOccupation] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+
+  React.useEffect(() => {
+    Promise.all([
+      api.getUserInfo({ name: userName, occupation: userOccupation, avatar: userAvatar }),
+      api.getInitialCards()
+    ])
+      .then(([userData, cardData]) => {
+        setUserName(userData.name);
+        setUserOccupation(userData.about);
+        setUserAvatar(userData.avatar);
+      })
+      .catch(err => console.error(`Что-то пошло не так: ${err}`));
+  });
+
   return (
     <main className="container">
       <section className="profile">
@@ -10,14 +28,14 @@ function Main(props) {
           onClick={props.onEditAvatar}
           onClose={props.closeAllPopups}>
           <img
-            src="<%=require('../images/profile__avatar.png')%>"
+            src={userAvatar}
             alt="Улыбающийся мужчина в красной шапке."
             className="profile__avatar"
           />
         </div>
         <div className="profile__info">
           <div className="profile__flex">
-            <h1 className="profile__name">Жак-Ив Кусто</h1>
+            <h1 className="profile__name">{userName}</h1>
             <button
               className="profile__edit-button"
               type="button"
@@ -25,7 +43,7 @@ function Main(props) {
               onClick={props.onEditProfile}
               onClose={props.closeAllPopups}></button>
           </div>
-          <p className="profile__occupation">Исследователь океана</p>
+          <p className="profile__occupation">{userOccupation}</p>
         </div>
         <button
           className="profile__add-button"
