@@ -1,10 +1,14 @@
+import React from 'react';
 import ImagePopup from './ImagePopup';
 
 function Main(props) {
   return (
     <main className="container">
       <section className="profile">
-        <div className="profile__avatar-overlay" onClick={props.onEditAvatar}>
+        <div
+          className="profile__avatar-overlay"
+          onClick={props.onEditAvatar}
+          onClose={props.closeAllPopups}>
           <img
             src="<%=require('../images/profile__avatar.png')%>"
             alt="Улыбающийся мужчина в красной шапке."
@@ -18,7 +22,8 @@ function Main(props) {
               className="profile__edit-button"
               type="button"
               aria-label="Редактировать"
-              onClick={props.onEditProfile}></button>
+              onClick={props.onEditProfile}
+              onClose={props.closeAllPopups}></button>
           </div>
           <p className="profile__occupation">Исследователь океана</p>
         </div>
@@ -26,7 +31,8 @@ function Main(props) {
           className="profile__add-button"
           type="button"
           aria-label="Добавить карточку"
-          onClick={props.onAddCard}></button>
+          onClick={props.onAddCard}
+          onClose={props.closeAllPopups}></button>
       </section>
       <section className="photos">
         <template className="card__template">

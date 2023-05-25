@@ -11,7 +11,11 @@ export default function PopupWithForm(props) {
             {props.buttonText}
           </button>
         </form>
-        <button className="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <button
+          className="popup__close-button"
+          type="button"
+          onClick={props.onClose}
+          aria-label="Закрыть"></button>
       </div>
     </div>
   );
