@@ -17,18 +17,10 @@ function Main(props) {
         setUserName(userData.name);
         setUserOccupation(userData.about);
         setUserAvatar(userData.avatar);
-        setCards(
-          cardData.map(card => ({
-            id: card._id,
-            link: card.link,
-            name: card.name,
-            alt: card.name,
-            likes: card.likes.length
-          }))
-        );
+        setCards(cardData);
       })
       .catch(err => console.error(`Что-то пошло не так: ${err}`));
-  }, [userName, userOccupation, userAvatar]);
+  }, [userAvatar, userName, userOccupation]);
 
   return (
     <main className="container">
@@ -58,9 +50,10 @@ function Main(props) {
           onClick={props.onAddCard}
           onClose={props.closeAllPopups}></button>
       </section>
+
       <section className="photos">
-        {cards.map(({ id, ...props }) => (
-          <Card key={id} {...props} />
+        {cards.map(card => (
+          <Card key={card._id} onCardClick={props.onCardClick} card={card} />
         ))}
       </section>
     </main>

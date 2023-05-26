@@ -2,12 +2,14 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from '../components/PopupWithForm';
+import ImagePopup from './ImagePopup';
 import Footer from './Footer';
 
 function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddCardPopupOpen, setAddCardPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '', isOpen: false });
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
@@ -23,16 +25,23 @@ function App() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddCardPopupOpen(false);
+    setSelectedCard({});
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard({ name: card.name, link: card.link, alt: card.name, isOpen: true });
   }
 
   return (
     <div className="root">
       <div className="page">
         <Header />
+
         <Main
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
           onAddCard={handleAddCardClick}
+          onCardClick={handleCardClick}
         />
 
         <PopupWithForm
@@ -113,6 +122,9 @@ function App() {
         </PopupWithForm>
 
         <PopupWithForm name="delete-card" title="Вы уверены?" buttonText="Да" />
+
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+
         <Footer />
       </div>
     </div>
