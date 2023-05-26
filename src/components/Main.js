@@ -1,11 +1,12 @@
 import React from 'react';
 import { api } from '../utils/api';
-import userAvatar from '../images/profile__avatar.png';
+import Card from './Card';
 
 function Main(props) {
   const [userName, setUserName] = React.useState('');
   const [userOccupation, setUserOccupation] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     Promise.all([
@@ -16,9 +17,18 @@ function Main(props) {
         setUserName(userData.name);
         setUserOccupation(userData.about);
         setUserAvatar(userData.avatar);
+        setCards(
+          cardData.map(card => ({
+            id: card._id,
+            link: card.link,
+            name: card.name,
+            alt: card.name,
+            likes: card.likes.length
+          }))
+        );
       })
       .catch(err => console.error(`Что-то пошло не так: ${err}`));
-  });
+  }, []);
 
   return (
     <main className="container">
@@ -27,11 +37,7 @@ function Main(props) {
           className="profile__avatar-overlay"
           onClick={props.onEditAvatar}
           onClose={props.closeAllPopups}>
-          <img
-            src={userAvatar}
-            alt="Улыбающийся мужчина в красной шапке."
-            className="profile__avatar"
-          />
+          <img src={userAvatar} alt="Изображение пользователя." className="profile__avatar" />
         </div>
         <div className="profile__info">
           <div className="profile__flex">
@@ -53,19 +59,9 @@ function Main(props) {
           onClose={props.closeAllPopups}></button>
       </section>
       <section className="photos">
-        <template className="card__template">
-          <div className="card">
-            <button className="card__delete-button" aria-label="Нравится"></button>
-            <img className="card__place" />
-            <div className="card__flex">
-              <h2 className="card__title"></h2>
-              <div className="card__like-box">
-                <button className="card__like-button" aria-label="Нравится"></button>
-                <p className="card__like-counter">0</p>
-              </div>
-            </div>
-          </div>
-        </template>
+        {cards.map(({ id, ...props }) => (
+          <Card key={id} {...props} />
+        ))}
       </section>
 
       <figure className="popup popup_photo-scale">
