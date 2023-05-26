@@ -38,10 +38,11 @@
 
 ## Как запустить проект
 
-1. Склонируйте репозиторий на свое устройство:
-   `git clone https://github.com/m-golovatenko/mesto-react.git`
+1. Склонируйте репозиторий на свое устройство
 
-2. Перейдите в директорию проекта:
+`git clone https://github.com/m-golovatenko/mesto-react.git`
+
+1. Перейдите в директорию проекта:
 
 `cd mesto-react`
 
