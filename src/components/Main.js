@@ -28,7 +28,7 @@ function Main(props) {
         );
       })
       .catch(err => console.error(`Что-то пошло не так: ${err}`));
-  }, []);
+  }, [userName, userOccupation, userAvatar]);
 
   return (
     <main className="container">
@@ -63,14 +63,6 @@ function Main(props) {
           <Card key={id} {...props} />
         ))}
       </section>
-
-      <figure className="popup popup_photo-scale">
-        <div className="popup__photo-scale-container">
-          <button className="popup__close-button" type="button" aria-label="Закрыть"></button>
-          <img className="popup__scale-photo" />
-          <figcaption className="popup__subtitle"></figcaption>
-        </div>
-      </figure>
     </main>
   );
 }
