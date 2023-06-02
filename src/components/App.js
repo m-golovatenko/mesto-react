@@ -134,13 +134,18 @@ function App() {
       }
     }
 
-    if (isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen) {
+    if (
+      isEditAvatarPopupOpen ||
+      isEditProfilePopupOpen ||
+      isAddPlacePopupOpen ||
+      isDeleteCardPopupOpen
+    ) {
       document.addEventListener('keydown', closeOnEsc);
     }
     return () => {
       document.removeEventListener('keydown', closeOnEsc);
     };
-  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen]);
+  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isDeleteCardPopupOpen]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
