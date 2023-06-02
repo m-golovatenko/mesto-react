@@ -37,7 +37,7 @@ export default function AddPlacePopup(props) {
         type="text"
         name="title"
         placeholder="Название"
-        value={name}
+        value={name || ''}
         onChange={handleNameChange}
         minLength="2"
         maxLength="30"
@@ -51,7 +51,7 @@ export default function AddPlacePopup(props) {
         type="url"
         name="link"
         placeholder="Ссылка на изображение"
-        value={link}
+        value={link || ''}
         onChange={handleLinkChange}
         required
       />
