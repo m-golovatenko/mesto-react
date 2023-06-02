@@ -26,7 +26,8 @@ function Main(props) {
               type="button"
               aria-label="Редактировать"
               onClick={props.onEditProfile}
-              onClose={props.closeAllPopups}></button>
+              onClose={props.closeAllPopups}
+            />
           </div>
           <p className="profile__occupation">{currentUser.about}</p>
         </div>
@@ -35,7 +36,8 @@ function Main(props) {
           type="button"
           aria-label="Добавить карточку"
           onClick={props.onAddCard}
-          onClose={props.closeAllPopups}></button>
+          onClose={props.closeAllPopups}
+        />
       </section>
 
       <section className="photos">

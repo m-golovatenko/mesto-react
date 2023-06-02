@@ -18,7 +18,6 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '', isOpen: false });
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-  const [cardToBeDeleted, setCardToBeDeleted] = React.useState({});
   const [isLoading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
@@ -44,7 +43,7 @@ function App() {
 
   function handleDeleteCardClick(card) {
     setDeleteCardPopupOpen(true);
-    setCardToBeDeleted(card);
+    setSelectedCard(card);
   }
 
   function closeAllPopups() {
@@ -72,9 +71,9 @@ function App() {
   function handleCardDelete() {
     setLoading(true);
     api
-      .deleteCard(cardToBeDeleted._id)
+      .deleteCard(selectedCard._id)
       .then(() => {
-        setCards(state => state.filter(c => c._id !== cardToBeDeleted._id));
+        setCards(state => state.filter(c => c._id !== selectedCard._id));
       })
       .then(() => {
         closeAllPopups();
