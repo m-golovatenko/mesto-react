@@ -24,6 +24,16 @@ function App() {
       .catch(err => console.error(`Что-то пошло не так: ${err}`));
   }, []);
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then(newCard => {
+        setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
+      })
+      .catch(err => console.error(`Ошибка при постановке лайка: ${err}`));
+  }
+
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
   }
@@ -57,6 +67,7 @@ function App() {
             onAddCard={handleAddCardClick}
             onCardClick={handleCardClick}
             cards={cards}
+            onCardLike={handleCardLike}
           />
 
           <PopupWithForm

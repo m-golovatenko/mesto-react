@@ -40,7 +40,12 @@ function Main(props) {
 
       <section className="photos">
         {props.cards.map(card => (
-          <Card key={card._id} onCardClick={props.onCardClick} card={card} />
+          <Card
+            key={card._id}
+            onCardClick={props.onCardClick}
+            card={card}
+            onCardLike={props.onCardLike}
+          />
         ))}
       </section>
     </main>
