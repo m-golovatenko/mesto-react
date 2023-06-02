@@ -19,6 +19,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [cardToBeDeleted, setCardToBeDeleted] = React.useState({});
+  const [isLoading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -69,6 +70,7 @@ function App() {
   }
 
   function handleCardDelete() {
+    setLoading(true);
     api
       .deleteCard(cardToBeDeleted._id)
       .then(() => {
@@ -77,37 +79,52 @@ function App() {
       .then(() => {
         closeAllPopups();
       })
-      .catch(err => console.error(`Ошибка при удалении карточки: ${err}`));
+      .catch(err => console.error(`Ошибка при удалении карточки: ${err}`))
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   function handleUpdateUser(userData) {
+    setLoading(true);
     api
       .changeUserInfo(userData)
       .then(userData => {
         setCurrentUser(userData);
         closeAllPopups();
       })
-      .catch(err => console.error(`Ошибка при изменении данных пользователя: ${err}`));
+      .catch(err => console.error(`Ошибка при изменении данных пользователя: ${err}`))
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   function handleUpdateAvatar(avatar) {
+    setLoading(true);
     api
       .changeAvatar(avatar)
       .then(avatar => {
         setCurrentUser(avatar);
         closeAllPopups();
       })
-      .catch(err => console.error(`Ошибка при изменении аватара профиля: ${err}`));
+      .catch(err => console.error(`Ошибка при изменении аватара профиля: ${err}`))
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   function handleAddPlaceSubmit(cardData) {
+    setLoading(true);
     api
       .addCard(cardData)
       .then(newCard => {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch(err => console.error(`Ошибка при добавлении карточки: ${err}`));
+      .catch(err => console.error(`Ошибка при добавлении карточки: ${err}`))
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   React.useEffect(() => {
@@ -145,24 +162,30 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+            loading={isLoading}
           />
 
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
+            loading={isLoading}
           />
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+            loading={isLoading}
           />
+
           <DeleteCardPopup
             onClose={closeAllPopups}
             isOpen={isDeleteCardPopupOpen}
             onDeleteCard={handleCardDelete}
+            loading={isLoading}
           />
+
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
           <Footer />
