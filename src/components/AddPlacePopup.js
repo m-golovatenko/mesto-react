@@ -18,6 +18,11 @@ export default function AddPlacePopup(props) {
     props.onAddPlace({ name, link });
   }
 
+  React.useEffect(() => {
+    setName('');
+    setLink('');
+  }, [props.isOpen]);
+
   return (
     <PopupWithForm
       name="add"
