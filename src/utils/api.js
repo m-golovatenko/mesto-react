@@ -27,7 +27,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.occupation
+        about: data.about
       })
     }).then(this._checkStatus);
   }

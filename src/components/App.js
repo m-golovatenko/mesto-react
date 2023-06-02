@@ -6,6 +6,7 @@ import ImagePopup from './ImagePopup';
 import Footer from './Footer';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { api } from '../utils/api';
+import EditProfilePopup from './EditProfilePopup';
 
 function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
@@ -64,6 +65,16 @@ function App() {
       .catch(err => console.error(`Ошибка при удалении карточки: ${err}`));
   }
 
+  function handleUpdateUser(userData) {
+    api
+      .changeUserInfo(userData)
+      .then(userData => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch(err => console.error(`Ошибка при изменении данных пользователя: ${err}`));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -80,36 +91,11 @@ function App() {
             onCardDelete={handleCardDelete}
           />
 
-          <PopupWithForm
-            name="edit"
-            title="Редактировать профиль"
-            buttonText="Сохранить"
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}>
-            <input
-              id="popup__input-name"
-              className="popup__input popup__input_type_name"
-              type="text"
-              name="name"
-              placeholder="Имя"
-              minLength="2"
-              maxLength="40"
-              required
-            />
-            <span className="popup__input-error popup__input-name-error"></span>
-
-            <input
-              id="popup__input-occupation"
-              className="popup__input popup__input_type_occupation"
-              type="text"
-              placeholder="О себе"
-              name="occupation"
-              minLength="2"
-              maxLength="200"
-              required
-            />
-            <span className="popup__input-error popup__input-occupation-error"></span>
-          </PopupWithForm>
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
 
           <PopupWithForm
             name="add"
