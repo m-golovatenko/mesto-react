@@ -25,7 +25,6 @@ export default function Card(props) {
   return (
     <div className="card">
       {isOwn && <button className="card__delete-button" onClick={handleDeleteClick} />}
-      {/* <button className="card__delete-button" aria-label="Удалить карточку"></button> */}
       <img
         className="card__place"
         src={props.card.link}
