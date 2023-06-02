@@ -97,6 +97,20 @@ function App() {
       .catch(err => console.error(`Ошибка при добавлении карточки: ${err}`));
   }
 
+  React.useEffect(() => {
+    function closeOnEsc(evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+
+    if (isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen) {
+      document.addEventListener('keydown', closeOnEsc);
+    } else {
+      document.removeEventListener('keydown', closeOnEsc);
+    }
+  }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
