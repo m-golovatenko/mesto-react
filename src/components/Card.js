@@ -4,8 +4,8 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 export default function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  // //Detele button for user card
-  // const isOwn = props.card.owner._id === currentUser._id;
+  //Detele button for user card
+  const isOwn = props.card.owner._id === currentUser._id;
 
   //Check like
   const isLiked = props.card.likes.some(i => i._id === currentUser._id);
@@ -19,10 +19,13 @@ export default function Card(props) {
     props.onCardLike(props.card);
   }
 
+  function handleDeleteClick() {
+    props.onCardDelete(props.card);
+  }
   return (
     <div className="card">
-      {/* {isOwn && <button className="card__delete-button" onClick={handleDeleteClick} />} */}
-      <button className="card__delete-button" aria-label="Удалить карточку"></button>
+      {isOwn && <button className="card__delete-button" onClick={handleDeleteClick} />}
+      {/* <button className="card__delete-button" aria-label="Удалить карточку"></button> */}
       <img
         className="card__place"
         src={props.card.link}

@@ -24,16 +24,6 @@ function App() {
       .catch(err => console.error(`Что-то пошло не так: ${err}`));
   }, []);
 
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api
-      .changeLikeCardStatus(card._id, isLiked)
-      .then(newCard => {
-        setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
-      })
-      .catch(err => console.error(`Ошибка при постановке лайка: ${err}`));
-  }
-
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
   }
@@ -55,6 +45,25 @@ function App() {
     setSelectedCard({ name: card.name, link: card.link, alt: card.name, isOpen: true });
   }
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then(newCard => {
+        setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
+      })
+      .catch(err => console.error(`Ошибка при постановке лайка: ${err}`));
+  }
+
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards(state => state.filter(c => c._id !== card._id));
+      })
+      .catch(err => console.error(`Ошибка при удалении карточки: ${err}`));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -68,6 +77,7 @@ function App() {
             onCardClick={handleCardClick}
             cards={cards}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
 
           <PopupWithForm
